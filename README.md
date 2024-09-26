@@ -75,5 +75,5 @@ When the final time is reached, the code stores the field in a Matlab file (this
         
         z_v         1x64                       512  double
 
-The 3D arrays for the velocity components (u,v,w) in the (x,y,z) directions and the pressure are arranged so that the first index is for the Z dimension, the second index for the Y dimension and the third index is for the X dimension. Since the variables are defined in a staggered grid, the grid coordinates are also provided. For instance, for the axial velocity u, the X dimension is discretized by x_u, the Y dimension is discretized by y_u and so forth. The user is reminded that u,v,w and p might have different size since they are defined at different grid points
+The 3D arrays for the velocity components (u,v,w) in the (x,y,z) directions and the pressure are arranged so that the first index is for the Z dimension, the second index for the Y dimension and the third index is for the X dimension. Since the variables are defined in a staggered grid, the grid coordinates are also provided. For instance, for the axial velocity u, the X dimension is discretized by x_u, the Y dimension is discretized by y_u and so forth. The user is reminded that u,v,w and p might have different sizes since they are defined at different grid points
 
