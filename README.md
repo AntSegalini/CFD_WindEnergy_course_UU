@@ -41,3 +41,24 @@ CFL_max=0.2          # Maximum allowed CFL number
 fileName='simulation'  # Name of the stored fields
 
 
+When the final time is reached, the code stores the field in a Matlab file (this is the same for the intermediate steps as well) and it plots some hub-height planes to evaluate the solution quality. Each Matlab file contains the following variables
+
+   Attr Name        Size                     Bytes  Class
+   ==== ====        ====                     =====  ===== 
+        p          64x64x99                3244032  double
+        t           1x1                          8  double
+        u          64x64x100               3276800  double
+        v          64x64x101               3309568  double
+        w          64x64x101               3309568  double
+        x_p         1x99                       792  double
+        x_u         1x100                      800  double
+        x_v         1x101                      808  double
+        y_p         1x64                       512  double
+        y_u         1x64                       512  double
+        y_v         1x64                       512  double
+        z_p         1x64                       512  double
+        z_u         1x64                       512  double
+        z_v         1x64                       512  double
+
+The 3D arrays for the velocity components (u,v,w) in the (x,y,z) directions and the pressure are arranged so that the first index is for the Z dimension, the second index for the Y dimension and the third index is for the X dimension. Since the variables are defined in a staggered grid, the grid coordinates are also provided. For instance, for the axial velocity u, the X dimension is discretized by x_u, the Y dimension is discretized by y_u and so forth. The user is reminded that u,v,w and p might have different size since they are defined at different grid points
+
