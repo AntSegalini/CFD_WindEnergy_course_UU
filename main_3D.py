@@ -23,6 +23,8 @@ iter_saving=100
 start_from=0
 CFL_max=0.2
 
+fileName='simulation'
+
 #########################################################################################
 
 def main():
@@ -32,7 +34,7 @@ def main():
 
     t,i=0,0
     if start_from>0:
-        Q=loadmat('simulation'+str(start_from)+'.mat')
+        Q=loadmat(fileName+'_'+str(start_from)+'.mat')
         sim.set_uvwp(Q['u'],Q['v'],Q['w'],Q['p'])
         t=np.squeeze(Q['t'])
         i=start_from
@@ -52,7 +54,9 @@ def main():
         print(i,' t=',np.round(t,1),' dt=',np.round(sim.dt,3),' MAX DIV=',np.round(np.max(np.abs(sim.DIVERGENCE(sim.u,sim.v,sim.w))),4))
         
         if np.mod(i,iter_saving)==0:
-            savemat('simulation'+str(i)+'.mat',{'u':sim.u,'v':sim.v,'w':sim.w,'p':sim.p,'t':t,'x_u':sim.x_u,'y_u':sim.y_u,'z_u':sim.z_u,'x_v':sim.x_v,'y_v':sim.y_v,'z_v':sim.z_v,'x_p':sim.x_p,'y_p':sim.y_p,'z_p':sim.z_p})
+            savemat(fileName+'_'+str(i)+'.mat',{'u':sim.u,'v':sim.v,'w':sim.w,'p':sim.p,'t':t,'x_u':sim.x_u,'y_u':sim.y_u,'z_u':sim.z_u,'x_v':sim.x_v,'y_v':sim.y_v,'z_v':sim.z_v,'x_p':sim.x_p,'y_p':sim.y_p,'z_p':sim.z_p})
+
+    savemat(fileName+'_'+str(i)+'.mat',{'u':sim.u,'v':sim.v,'w':sim.w,'p':sim.p,'t':t,'x_u':sim.x_u,'y_u':sim.y_u,'z_u':sim.z_u,'x_v':sim.x_v,'y_v':sim.y_v,'z_v':sim.z_v,'x_p':sim.x_p,'y_p':sim.y_p,'z_p':sim.z_p})
 
     print('elapsed time:',time.time()-t1)
 
@@ -73,6 +77,7 @@ def main():
     plt.subplot(224)
     plt.contourf(sim.x_p,sim.y_p,sim.p[NZ//2],30,cmap=plt.get_cmap('jet'))
     plt.colorbar();plt.title('p');plt.xlabel('x [m]');plt.ylabel('y [m]')
+    plt.tight_layout()
     plt.show()
 
 if __name__ == "__main__": # Only run the functions defined in this code. 

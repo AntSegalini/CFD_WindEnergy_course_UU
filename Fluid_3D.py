@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.linalg import solve_banded
-from concurrent.futures import ProcessPoolExecutor
+# from concurrent.futures import ProcessPoolExecutor
 
 def process_i(i, kz, ky, D, I, b_hat, jmin=0):
     result=np.zeros((len(ky),b_hat.shape[-1]),dtype=np.complex128)
