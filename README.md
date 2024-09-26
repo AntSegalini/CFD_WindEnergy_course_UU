@@ -9,15 +9,12 @@ Second-order discretizations are used to solve the momentum equation and to esti
 The code can be run in python without any compilation. The reuired packages are numpy, scipy and matplotlib. The code is not parallelized so it runs with a single CPU. The user has to decide how long the simulation needs to be by setting a final time. It is possible to store the velocity and pressure field after some iterations (say every 100) and after the code reached the final time. Saving intermediate field is good to monitor the temporal evolution of the solution but these can be used to set a new initial condition and continue the simulation from that iteration in case the execution was interrupted or the solution did not reach a steady-state yet.
 
 The user can set the parameters of the simulation at the beginning of the main_3d.py file as
-
-
-# Parameters to set. 
+ 
 Uinf, nu= 8, 10      # free-stream velocity [m/s], eddy viscosity [m2/s].   
 LX, NX= 1000, 100    # X domain length [m], number of grid points in X (x=0 is the domain start)
 LY, NY= 500, 64      # Y domain length [m], number of grid points in Y (periodic direction) (y=0 is the domain center)
 LZ, NZ= 500, 64      # Z domain length [m], number of grid points in Z (periodic direction) (z=0 is the domain center)
 
-# turbine locations
 X_T=[300]            # X location of the turbine [m] (for two turbines X_T=[300,500])
 Y_T=[0]              # Y location of the turbine [m] (for two turbines Y_T=[0,10])
 Z_T=[0]              # Z location of the turbine [m] (for two turbines Z_T=[0,0])
