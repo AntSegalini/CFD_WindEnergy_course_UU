@@ -61,7 +61,7 @@ class Fluid_windenergy:
         
         # Boundary conditions for pressure for zeroth wavenumber
         self.D0=self.D.copy()
-        self.D0[1,0]*=3             # zero pressure at inlet
+        self.D0[1,-1]*=3             # zero pressure at outlet
         
         self.I=np.zeros((3,NX-1))
         self.I[1]=1
@@ -69,6 +69,7 @@ class Fluid_windenergy:
         # wavenumbers to be used in the Poisson solver
         self.ky=np.fft.rfftfreq(NY)*(2*np.pi/self.dy)
         self.kz=np.fft.fftfreq(NZ)*(2*np.pi/self.dz)
+        self.chi=np.zeros((NZ,NY))
 
         Z,Y=np.meshgrid(self.z_u,self.y_u,indexing='ij') # the shift is added to have the correct location of the grid points for the X forcing
         xp=np.zeros_like(x)
@@ -194,11 +195,13 @@ class Fluid_windenergy:
         v[:,:, -1] = v[:,:, -2]
         w[:,:, -1] = w[:,:, -2]
         # periodic BC on top and bottom (no action required)
+        self.chi[:]=(un[:,:,1]-self.Uinf)/self.dx**2*(-self.Uinf/2+self.nu/self.dx)
         
     def pressure_poisson_spectral(self):
         u, v, w, dt = self.u, self.v, self.w, self.dt
         
         b_hat=np.fft.rfft2( 1 / dt * self.DIVERGENCE(u, v, w) ,axes=(0,1))
+        b_hat[:,:,0]+=np.fft.rfft2(self.chi,axes=(0,1))
         
         b_hat[0,0] = solve_banded((1, 1), self.D0, b_hat[0, 0])
         b_hat[0,1:] = process_i(0, 0, self.ky, self.D, self.I, b_hat[0],1)[1][1:]
