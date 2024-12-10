@@ -6,24 +6,25 @@ from scipy.io import savemat,loadmat
 
 # Parameters to set. 
 Uinf, nu= 8, 10      # Parameters for the wind energy simulation.   
-LX, NX= 1000, 100   # Parameters for the wind energy simulation.
-LY, NY= 500, 64     # Parameters for the wind energy simulation.    
-LZ, NZ= 500, 64     # Parameters for the wind energy simulation.
+LX, NX= 1200, 240   # Parameters for the wind energy simulation.
+LY, NY= 600, 64     # Parameters for the wind energy simulation.    
+LZ, NZ= 600, 64     # Parameters for the wind energy simulation.
 
 # turbine locations
-X_T=[300,600,750]
-Y_T=[0,100,-100]
-Z_T=[0,0,0]
-R_T=[50,50,50]
-C_T=[0.8,0.8,0.8]    
-delta=10
+X_T=[200,400,600,800,1000]
+Y_T=[0,0,0,0,0]
+Z_T=[0,0,0,0,0]
+R_T=[50,50,50,50,50]
+C_T=[0.8,0.8,0.8,0.8,0.8]    
+delta=5
 
-t_max=LX/Uinf
+t_max=(LX/Uinf)
+
 iter_saving=100
 start_from=0
 CFL_max=0.2
 
-path = 'sim_res/'
+path = 'sim_res/sim_res_2D/'
 fileName='simulation'
 
 #########################################################################################
